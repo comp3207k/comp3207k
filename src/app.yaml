@@ -10,7 +10,7 @@ threadsafe: true
 handlers:
 
 - url: /static
-  static-dir: static
+  static_dir: static
 
 - url: /.*
   script: controllers.application
