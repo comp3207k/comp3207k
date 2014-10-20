@@ -10,6 +10,9 @@ Setting up the development server
     # ./get_env.sh     # Only need to run this once to download the Google SDK
     # ./da.sh
 
+Uploading to Google
+------------------
 
+    # ./google_appengine/appcfg.py update src/
 
 

@@ -4,7 +4,14 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+
+
+
 handlers:
+
+- url: /static
+  static-dir: static
+
 - url: /.*
   script: controllers.application
 
