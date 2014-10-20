@@ -15,4 +15,5 @@ Uploading to Google
 
     # ./google_appengine/appcfg.py update src/
 
+The live version can be access at https://comp3207k.appspot.com/
 
