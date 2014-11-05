@@ -21,6 +21,11 @@ class CineWorldImporter(importer.Importer):
         pass
     
     def _get_cinemas(self):
+        """
+        Downloads and parses cinemas, films and showing times.
+        Returns a tuple (cinemas, films).
+        """
+        
         d = self._get_dom(self.BASE_URL + self.CINEMAS)
         r = d.childNodes[0] # <cinemas>
         cinema_nodes = r.childNodes # <cinema> array
@@ -76,7 +81,7 @@ class CineWorldImporter(importer.Importer):
                         raise importer.ImporterException()
                 
                 c['films'].append({
-                    'edi': edi,
+                    'api_id': edi,
                     'times': t
                 })
                 
@@ -95,7 +100,7 @@ class CineWorldImporter(importer.Importer):
                         'director': attrs['director'].value,
                         'synopsis': attrs['synopsis'].value,
                         'cast': attrs['cast'].value,
-                        'edi': edi,
+                        'api_id': edi,
                         'url': root + attrs['url'].value,
                         'poster': root + attrs['poster'].value
                     }
