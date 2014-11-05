@@ -22,6 +22,8 @@ class TestCineWorldImporter(unittest.TestCase):
         self.assertTrue('address' in c[0].keys())
         self.assertTrue('url' in c[0].keys())
         self.assertTrue('api_id' in c[0].keys())
+        self.assertTrue('films' in c[0].keys())
+        self.assertTrue(type(c[0]['films'][0]) == dict)
         
         self.assertTrue(len(f) > 0)
         self.assertTrue('name' in f[0].keys())

@@ -7,6 +7,7 @@ Defines the CineWorldImporter class.
 
 from xml.dom import minidom
 import urllib2
+import datetime
 
 import importer
 
@@ -58,11 +59,30 @@ class CineWorldImporter(importer.Importer):
                     edi = attrs['edi'].value
                 except KeyError:
                    continue # Not interested in films with no edi
+               
+               # Get show times
+                t = []
+                show_nodes = fn.firstChild.childNodes
                 
-                c['films'].append(edi)
+                for sn in show_nodes:
+                    try:
+                        t.append(
+                            datetime.datetime.strptime(
+                                sn.attributes['date'].value + ' ' + sn.attributes['time'].value,
+                                '%a %d %b %H:%M'
+                            )
+                        )
+                    except KeyError, ValueError:
+                        raise importer.ImporterException()
                 
+                c['films'].append({
+                    'edi': edi,
+                    'times': t
+                })
+                
+                # Get film info
                 if edi in edis:
-                    continue
+                    continue    # We already have film info
                 
                 edis.append(edi)
                 
