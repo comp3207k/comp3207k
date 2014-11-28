@@ -17,6 +17,21 @@ class Cinemas(ndb.Model):
     name = ndb.StringProperty()
     address = ndb.StringProperty()
     url = ndb.StringProperty()
+    
+    @classmethod
+    def get_by_api_id(self, id):
+        """Returns a single result or None."""
+        return Films.query(api_id=id).get()
+    
+    @classmethod
+    def get_film_times(self):
+        """Returns a list of FilmTime objects."""
+        return FilmTimes.query(ancestor=self).fetch(1000)
+    
+    @classmethod
+    def delete_film_times(self):
+        """Deletes all the FilmTime objects for this cinema."""
+        t.key.delete for t in self.get_film_times()
 
 
 class FilmTimes(ndb.Model):
@@ -44,5 +59,9 @@ class Films(ndb.Model):
     cast = ndb.StringProperty()
     url = ndb.StringProperty()
     poster = ndb.StringProperty()
-    api_id = ndb.IntegerProperty()
+    
+    @classmethod
+    def get_by_api_id(self, id):
+        """Returns a single result or None."""
+        return Films.query(api_id=id).get()
 
