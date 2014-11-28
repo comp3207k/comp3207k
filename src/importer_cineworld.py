@@ -10,6 +10,7 @@ import urllib2
 import datetime
 
 import importer
+import models
 
 
 class CineWorldImporter(importer.Importer):
@@ -18,7 +19,31 @@ class CineWorldImporter(importer.Importer):
     CINEMAS = 'all-performances.xml'
     
     def import_data(self):
-        pass
+        """
+        Downloads, parses and imports cinemas, films
+        and film times into the datastore.
+        """
+        
+        cinemas, films = self._get_cinemas()
+        
+        for film in films:
+            f = models.Film.get_by_api_id(film['api_id'])
+            
+            if f is None:   
+                f = models.Film()
+            
+            f.populate(**film)
+            f.put()
+        
+        for cinema in cinemas:
+            c = models.Cinema.get_by_api_id(cinema['api_id'])
+            
+            if c is None:   
+                c = models.Cinemas(parent=models.parent_key)
+            
+            c.populate(**cinema)
+            c.put()
+            ct = c.get_film_times()
     
     def _get_cinemas(self):
         """
