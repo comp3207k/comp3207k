@@ -6330,6 +6330,8 @@ button.close {
   }
 }
 h1 {
+  background-color:rgba(128,128,128,0.3);
+
     color: white;
     text-shadow:
     -1px -1px 0 #000,
@@ -6338,6 +6340,7 @@ h1 {
     1px 1px 0 #000;
 }
 h3 {
+  background-color:rgba(128,128,128,0.3);
     color: white;
     text-shadow:
     -1px -1px 0 #000,
@@ -6345,7 +6348,8 @@ h3 {
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
-p {
+p1 {
+  background-color:rgba(128,128,128,0.3);
     color: white ;
     text-shadow:
     -1px -1px 0 #000,
