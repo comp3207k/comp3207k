@@ -139,7 +139,7 @@ class SignupHandler(BaseHandler):
     msg = 'Send an email to user in order to verify their address. \
           They will be able to do so by visiting <a href="{url}">{url}</a>'
 
-    self.render_template('home.html',{'user':u})
+    self.render_template('home.html',{'user':user})
 
 class ForgotPasswordHandler(BaseHandler):
   def get(self):
