@@ -6,14 +6,14 @@ from google.appengine.ext import ndb
 
 
 # Parent key for all models except FilmTimes
-parent_key = ndb.key('parent')
+parent_key = ndb.Key('parent', 1)
 
 class Cinemas(ndb.Model):
     """
     Cineworld cinemas.
     """
     
-    api_id = ndb.IntegerProperty()
+    api_id = ndb.StringProperty()
     name = ndb.StringProperty()
     address = ndb.StringProperty()
     url = ndb.StringProperty()
@@ -31,7 +31,8 @@ class Cinemas(ndb.Model):
     @classmethod
     def delete_film_times(self):
         """Deletes all the FilmTime objects for this cinema."""
-        t.key.delete for t in self.get_film_times()
+        for t in self.get_film_times():
+            t.key.delete
 
 
 class FilmTimes(ndb.Model):
@@ -49,7 +50,7 @@ class Films(ndb.Model):
     Film information.
     """
     
-    api_id = ndb.IntegerProperty()
+    api_id = ndb.StringProperty()
     name = ndb.StringProperty()
     rating = ndb.StringProperty()
     release = ndb.StringProperty()
@@ -63,5 +64,5 @@ class Films(ndb.Model):
     @classmethod
     def get_by_api_id(self, id):
         """Returns a single result or None."""
-        return Films.query(api_id=id).get()
+        return Films.query(Films.api_id==id).get()
 

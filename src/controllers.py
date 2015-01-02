@@ -31,9 +31,20 @@ class Login(RootHandler):
     def get(self):
         self.render('index.html', {})
 
+
+class Import(RootHandler):
+    def get(self):
+        import importer_cineworld
+        i = importer_cineworld.CineWorldImporter()
+        i.import_data()
+        
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write('Done')
+
 application = webapp2.WSGIApplication([
     ('/', Index),
-    ('/login', Login)
+    ('/login', Login),
+    ('/import', Import),
 ], debug=True)
 
 
