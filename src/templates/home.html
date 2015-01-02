@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +30,9 @@
   </head>
 
   <body background="images/mainBackground.jpg">
-
+	{% if not user %}
+          <a href="/login">Login (and forgot password)</a>
+        {% else %}
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -51,12 +54,12 @@
             <div class="navbar-form navbar-right">
               <img src="images/userPic.png" alt="Profile pic" height="32" width="26"></img>
               <div class="dropdown pull-right">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">&nbsp;&nbsp;username<b class="caret"></b></a>
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">&nbsp;&nbsp;{{ user.name }}<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Profile</a></li>
                   <li><a href="#">Settings</a></li>
                   <li class="divider"></li>
-                  <li><a href="file:///C:/Users/Bogdan/Desktop/New%20folder/comp3207k/src/templates/index.html">Logout</a></li>
+                  <li><a href="/logout">Logout</a></li>
                 </ul>
               </div>
             </div>
@@ -182,5 +185,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+	
+        {% endif %}
   </body>
 </html>
