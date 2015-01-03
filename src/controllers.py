@@ -80,6 +80,7 @@ application = webapp2.WSGIApplication([
     webapp2.Route('/import_worker', ImportWorker),
     webapp2.Route('/about', AboutHandler),
     webapp2.Route('/contact', ContactHandler),
+    webapp2.Route('/search', SearchHandler),
 ], debug=True, config=config)
 
 

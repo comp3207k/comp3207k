@@ -127,6 +127,16 @@ class ContactHandler(BaseHandler):
     else:
       self.redirect(self.uri_for('login'))
 
+class SearchHandler(BaseHandler):
+  def post(self):
+    if self.user:
+      template_values = {
+          'localUser': "Hi " + self.user.name
+          }
+      self.render_template('searchResults.html', params=template_values)
+    else:
+      self.redirect(self.uri_for('login'))
+
 class SignupHandler(BaseHandler):
   def get(self):
     self.render_template('register.html')

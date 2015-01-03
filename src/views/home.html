@@ -76,13 +76,14 @@
       <br></br>
 
       <div class="row">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for films">
+        <form role="form" method='POST' action="/search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for films" name="searchIt"></input>
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Search</button>
+              <button type="submit" class="btn btn-default">Search</button>
             </span>
-          </input>
-        </div><!-- /input-group -->
+          </div><!-- /input-group --> 
+        </form>
         <br></br>
 
         <div>
