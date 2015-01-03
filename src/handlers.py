@@ -107,6 +107,26 @@ class MainHandler(BaseHandler):
     else:
       self.redirect(self.uri_for('login'))
 
+class AboutHandler(BaseHandler):
+  def get(self):
+    if self.user:
+      template_values = {
+          'localUser': "Hi " + self.user.name
+          }
+      self.render_template('about.html', params=template_values)
+    else:
+      self.redirect(self.uri_for('login'))
+
+class ContactHandler(BaseHandler):
+  def get(self):
+    if self.user:
+      template_values = {
+          'localUser': "Hi " + self.user.name
+          }
+      self.render_template('contact.html', params=template_values)
+    else:
+      self.redirect(self.uri_for('login'))
+
 class SignupHandler(BaseHandler):
   def get(self):
     self.render_template('register.html')
