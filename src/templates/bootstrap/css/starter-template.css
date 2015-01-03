@@ -9,6 +9,9 @@ body {
   color: white;
 }
 .thumbnail {
- background-colour:transparent;
+ background-color:transparent;
  border:1px solid #fff;
+}
+.caption {
+  color: #fff;
 }
