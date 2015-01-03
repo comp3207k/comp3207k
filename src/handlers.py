@@ -6,7 +6,7 @@ from google.appengine.ext import ndb
 import logging
 import os.path
 import webapp2
-
+from models import Films
 from webapp2_extras import auth
 from webapp2_extras import sessions
 
@@ -100,7 +100,9 @@ class BaseHandler(webapp2.RequestHandler):
 class MainHandler(BaseHandler):
   def get(self):
     if self.user:
+      latest_films = Films.query().order(-Films.release).fetch(9)
       template_values = {
+          'news':latest_films,
           'localUser': "Hi " + self.user.name
           }
       self.render_template('home.html', params=template_values)
