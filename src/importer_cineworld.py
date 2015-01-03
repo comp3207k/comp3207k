@@ -27,10 +27,10 @@ class CineWorldImporter(importer.Importer):
         cinemas, films = self._get_cinemas()
         
         for film in films:
-            f = models.Film.get_by_api_id(film['api_id'])
+            f = models.Films.get_by_api_id(film['api_id'])
             
             if f is None:   
-                f = models.Film()
+                f = models.Films()
             
             f.populate(**film)
             f.put()

@@ -6329,4 +6329,34 @@ button.close {
     display: none !important;
   }
 }
+h8 {
+  background-color:rgba(128,128,128,0.3);
+    font-size: 36px;
+    color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+h3t {
+  background-color:rgba(128,128,128,0.3);
+
+    font-size: 24px;
+    color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+p1 {
+  background-color:rgba(128,128,128,0.3);
+    color: white ;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
 /*# sourceMappingURL=bootstrap.css.map */
