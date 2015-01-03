@@ -92,23 +92,23 @@
         <div class="row">
 		
 		  {% for film in news %}
-          <div class="col-sm-6 col-md-4" >
-            <div class="thumbnail">
+        <div class="col-sm-6 col-md-4" >
+          <div class="thumbnail">
 
-              <img style="height: 300px" src="{{ film.poster }}" alt="...">
-              <div class="caption" >
-				<div class= "black">
-					<div style="height:200px">
-						<h3>{{ film.title }}</h3>
-						<div style="max-height:140px; overflow: hidden;text-overflow: ;">
-							<p>{{ film.synopsis }}</p>
-						</div>
-					</div>
-					<a type="button" class="btn btn-info" href="film.html">Details</a>
-				</div>
-              </div>
+            <img style="height: 300px" src="{{ film.poster }}" alt="...">
+            <div class="caption" >
+				      <div class= "white">
+					      <div style="height:200px">
+						      <h3>{{ film.title }}</h3>
+						      <div style="max-height:140px; overflow: hidden;text-overflow: ;">
+							      <p>{{ film.synopsis }}</p>
+						      </div>
+					      </div>
+					      <a type="button" class="btn btn-info" href="film.html">Details</a>
+				      </div>
             </div>
           </div>
+        </div>
 		  {% endfor %}
 
         </div>
