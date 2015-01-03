@@ -18,7 +18,7 @@ import models
 
 class CineWorldImporter(importer.Importer):
     
-    BASE_URL = 'http://www.cineworld.co.uk/syndication/'
+    BASE_URL = 'http://crick.eu/'   #'http://www.cineworld.co.uk/syndication/'
     CINEMAS = 'all-performances.xml'
     
     def needs_updating(self):

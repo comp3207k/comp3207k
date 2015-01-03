@@ -52,7 +52,7 @@ class Login(RootHandler):
 
 class Import(RootHandler):
     def get(self):
-        taskqueue.add(url='/import_worker')
+        taskqueue.add(url='/import_worker', retry_options=taskqueue.TaskRetryOptions(task_retry_limit=0))
         
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('Task started (check status at http://localhost:8000/taskqueue or https://appengine.google.com/)')
