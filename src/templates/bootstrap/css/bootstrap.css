@@ -6359,4 +6359,11 @@ p1 {
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+.container2 {
+  padding-right: 42%;
+  padding-left: 42%;
+  margin-right: auto;
+  margin-left: auto;
+}
 /*# sourceMappingURL=bootstrap.css.map */
