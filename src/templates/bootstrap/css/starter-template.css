@@ -8,3 +8,7 @@ body {
 .white {
   color: white;
 }
+.thumbnail {
+ background-colour:transparent;
+ border:1px solid #fff;
+}
