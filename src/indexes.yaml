@@ -1,4 +1,18 @@
 
 indexes:
 
+- kind: Cinemas
+  ancestor: yes
+  properties:
+  - name: api_id
+
+- kind: FilmTimes
+  ancestor: yes
+  properties:
+  - name: film_key
+
+- kind: Films
+  ancestor: yes
+  properties:
+  - name: api_id
 

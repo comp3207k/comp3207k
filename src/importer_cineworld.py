@@ -9,54 +9,83 @@ from xml.dom import minidom
 import urllib2
 import datetime
 
+from google.appengine.ext import ndb
+
 import importer
 import models
 
 
 class CineWorldImporter(importer.Importer):
     
-    BASE_URL = 'http://www.cineworld.co.uk/syndication/'
+    BASE_URL = 'http://localhost/'  #'http://www.cineworld.co.uk/syndication/'
     CINEMAS = 'all-performances.xml'
     
+    def needs_updating(self):
+        """
+        Checks if the CineWorld Mega XML File Of Doom has
+        been modfied since the last update.
+        """
+        
+        s = self._get_lastmod(self.BASE_URL + self.CINEMAS)
+        d = models.LastUpdate.get_updated()
+        
+        return d != s
+        
+        
+    
+    @ndb.transactional
     def import_data(self):
         """
         Downloads, parses and imports cinemas, films
         and film times into the datastore.
         """
         
-        cinemas, films = self._get_cinemas()
+        cinemas, films, filmtimes, mod = self._get_cinemas()
         
         for film in films:
             f = models.Films.get_by_api_id(film['api_id'])
             
             if f is None:   
-                f = models.Films()
+                f = models.Films(parent=models.parent_key)
             
             f.populate(**film)
             f.put()
         
         for cinema in cinemas:
-            c = models.Cinema.get_by_api_id(cinema['api_id'])
+            c = models.Cinemas.get_by_api_id(cinema['api_id'])
             
-            if c is None:   
+            if c is None:
                 c = models.Cinemas(parent=models.parent_key)
             
             c.populate(**cinema)
             c.put()
-            ct = c.get_film_times()
+        """
+        # Delete all film times because there is no id to use
+        models.FilmTimes.delete_all()
+        
+        for ft in filmtimes:
+            c = models.Cinemas.get_by_api_id(ft['cinema_api_id']).key
+            f = models.Films.get_by_api_id(ft['film_api_id']).key
+            
+            nf = models.FilmTimes(parent=c, film_key=f, time=ft['time'])
+            nf.put()
+        """
+        models.LastUpdate.set_updated(mod)
     
     def _get_cinemas(self):
         """
-        Downloads and parses cinemas, films and showing times.
-        Returns a tuple (cinemas, films).
+        Downloads and parses XML into python objects.
+        Returns a tuple (cinemas, films, filmtimes, lastmod).
         """
         
         d = self._get_dom(self.BASE_URL + self.CINEMAS)
+        mod = self._get_lastmod(self.BASE_URL + self.CINEMAS)
         r = d.childNodes[0] # <cinemas>
         cinema_nodes = r.childNodes # <cinema> array
         
         cinemas = []
         films = []
+        filmtimes = []
         edis = []
         
         for cn in cinema_nodes:
@@ -64,15 +93,16 @@ class CineWorldImporter(importer.Importer):
             
             try:
                 c = {
+                    'api_id': attrs['id'].value,
                     'name' : attrs['name'].value,
                     'address': attrs['address'].value + ' ' + attrs['postcode'].value,
                     'url': attrs['root'].value + attrs['url'].value,
-                    'api_id': attrs['id'].value,
-                    'films': []
                 }
+                
+                c_api_id = attrs['id'].value
             except KeyError:
                 raise importer.ImporterException()
-                
+            
             cinemas.append(c)
             
             root = attrs['root'].value
@@ -91,24 +121,21 @@ class CineWorldImporter(importer.Importer):
                    continue # Not interested in films with no edi
                
                # Get show times
-                t = []
                 show_nodes = fn.firstChild.childNodes
                 
                 for sn in show_nodes:
                     try:
-                        t.append(
-                            datetime.datetime.strptime(
-                                sn.attributes['date'].value + ' ' + sn.attributes['time'].value,
-                                '%a %d %b %H:%M'
-                            )
+                        t = datetime.datetime.strptime(
+                            sn.attributes['date'].value + ' ' + sn.attributes['time'].value, '%a %d %b %H:%M'
                         )
                     except KeyError, ValueError:
                         raise importer.ImporterException()
                 
-                c['films'].append({
-                    'api_id': edi,
-                    'times': t
-                })
+                    filmtimes.append({
+                        'cinema_api_id': c_api_id,
+                        'film_api_id': edi,
+                        'time': t
+                    })
                 
                 # Get film info
                 if edi in edis:
@@ -118,14 +145,14 @@ class CineWorldImporter(importer.Importer):
                 
                 try:
                     f = {
-                        'name': attrs['title'].value,
+                        'api_id': edi,
+                        'title': attrs['title'].value,
                         'rating': attrs['rating'].value,
                         'release': attrs['release'].value,
                         'length': attrs['length'].value,
                         'director': attrs['director'].value,
                         'synopsis': attrs['synopsis'].value,
                         'cast': attrs['cast'].value,
-                        'api_id': edi,
                         'url': root + attrs['url'].value,
                         'poster': root + attrs['poster'].value
                     }
@@ -134,7 +161,7 @@ class CineWorldImporter(importer.Importer):
                 
                 films.append(f)
         
-        return cinemas, films
+        return cinemas, films, filmtimes, mod
                 
     
     def _get_dom(self, url):

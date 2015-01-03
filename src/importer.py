@@ -16,6 +16,7 @@ class Importer(object):
     def import_data(self):
         """
         Does the importing; throws ImporterException on error.
+        Must be transactional.
         """
 
         raise NotImplementedError('Method must be defined in subclass')

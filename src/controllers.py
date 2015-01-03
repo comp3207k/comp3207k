@@ -66,7 +66,8 @@ application = webapp2.WSGIApplication([
     webapp2.Route('/login', LoginHandler, name='login'),
     webapp2.Route('/logout', LogoutHandler, name='logout'),
     webapp2.Route('/forgot', ForgotPasswordHandler, name='forgot'),
-    webapp2.Route('/authenticated', AuthenticatedHandler, name='authenticated')
+    webapp2.Route('/authenticated', AuthenticatedHandler, name='authenticated'),
+    webapp2.Route('/import', Import),
 ], debug=True, config=config)
 
 

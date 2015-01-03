@@ -6,7 +6,6 @@ import time
 import webapp2_extras.appengine.auth.models
 from google.appengine.ext import ndb
 from webapp2_extras import security
-from google.appengine.ext import ndb
 
 class User(webapp2_extras.appengine.auth.models.User):
   def set_password(self, raw_password):
@@ -39,23 +38,46 @@ class User(webapp2_extras.appengine.auth.models.User):
 
     return None, None
 
-# Parent key for all models except FilmTimes
+# Parent key for Cinemas and Films
 parent_key = ndb.Key('parent', 1)
+
+
+class LastUpdate(ndb.Model):
+    """
+    Stores the last 'Date-Updated' value
+    of the CineWorld Mega XML File Of Doom.
+    """
+    
+    updated = ndb.StringProperty()
+    
+    @classmethod
+    def get_updated(self):
+        l = LastUpdate.get_or_insert('last_update', parent=parent_key)
+        return l.updated
+    
+    @classmethod
+    def set_updated(self, u):
+        l = LastUpdate.get_or_insert('last_update', parent=parent_key)
+        l.updated = u
+        l.put()
+    
+    
 
 class Cinemas(ndb.Model):
     """
     Cineworld cinemas.
+    Mimicks the XML attributes of <cinema>.
     """
     
-    api_id = ndb.StringProperty()
+    api_id = ndb.StringProperty()   # id
     name = ndb.StringProperty()
-    address = ndb.StringProperty()
-    url = ndb.StringProperty()
+    address = ndb.StringProperty()  # address + postcode + phone
+    url = ndb.StringProperty()      # root + url
     
     @classmethod
     def get_by_api_id(self, id):
         """Returns a single result or None."""
-        return Films.query(api_id=id).get()
+        return Cinemas.query(ancestor=parent_key).filter(Cinemas.api_id == id).get()
     
     @classmethod
     def get_film_times(self):
@@ -67,36 +89,51 @@ class Cinemas(ndb.Model):
         """Deletes all the FilmTime objects for this cinema."""
         for t in self.get_film_times():
             t.key.delete
+    
+    @classmethod
+    def get_all_keys(self):
+        return Cinemas.query(ancestor=parent_key).fetch(100000, keys_only=True)
 
 
 class FilmTimes(ndb.Model):
     """
     Film times. A Cinema object is used as
     a parent in the datastore.
+    Mimicks the XML attributes of <show>
     """
     
     film_key = ndb.KeyProperty()
-    time = ndb.DateTimeProperty()
+    time = ndb.DateTimeProperty()   # Parsed date and time
+    ad = ndb.BooleanProperty(default=False)      # audioType="audio described"
+    
+    @classmethod
+    def delete_all(self):
+        cinemas = Cinemas.get_all_keys()
+        
+        for c in cinemas:
+            fts = FilmTimes.query(ancestor=c).fetch(10000000, keys_only=True)
+            ndb.delete_multi_async(fts)
 
 
 class Films(ndb.Model):
     """
     Film information.
+    Mimicks the XML attributes of <film>
     """
     
-    api_id = ndb.StringProperty()
-    name = ndb.StringProperty()
+    api_id = ndb.StringProperty()   # edi
+    title = ndb.StringProperty()
     rating = ndb.StringProperty()
     release = ndb.StringProperty()
     length = ndb.StringProperty()
     director = ndb.StringProperty()
-    synopsis = ndb.StringProperty()
+    synopsis = ndb.TextProperty()
     cast = ndb.StringProperty()
-    url = ndb.StringProperty()
-    poster = ndb.StringProperty()
+    url = ndb.StringProperty()      # cinema.root + url
+    poster = ndb.StringProperty()   # cinema.root + poster
     
     @classmethod
     def get_by_api_id(self, id):
         """Returns a single result or None."""
-        return Films.query(Films.api_id==id).get()
+        return Films.query(ancestor=parent_key).filter(Films.api_id == id).get()
 
