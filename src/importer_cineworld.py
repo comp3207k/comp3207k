@@ -34,7 +34,6 @@ class CineWorldImporter(importer.Importer):
         
         
     
-    @ndb.transactional
     def import_data(self):
         """
         Downloads, parses and imports cinemas, films
@@ -43,6 +42,13 @@ class CineWorldImporter(importer.Importer):
         
         cinemas, films, filmtimes, mod = self._get_cinemas()
         
+        self._import_cinemas_films(cinemas, films)
+        self._import_filmtimes(filmtimes)
+        
+        models.LastUpdate.set_updated(mod)
+    
+    @ndb.transactional
+    def _import_cinemas_films(self, cinemas, films):
         for film in films:
             f = models.Films.get_by_api_id(film['api_id'])
             
@@ -60,7 +66,9 @@ class CineWorldImporter(importer.Importer):
             
             c.populate(**cinema)
             c.put()
-        
+    
+    @ndb.transactional
+    def _import_filmtimes(self, filmtimes):
         logging.info('Deleting film times')
         # Delete all film times because there is no id to use
         models.FilmTimes.delete_all()
@@ -77,8 +85,6 @@ class CineWorldImporter(importer.Importer):
             n += 1
             if n % 100 == 0:
                 logging.info(n)
-        
-        models.LastUpdate.set_updated(mod)
     
     def _get_cinemas(self):
         """
