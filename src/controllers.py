@@ -6,6 +6,8 @@ import os
 
 import webapp2
 import jinja2
+from google.appengine.api import taskqueue
+
 from handlers import *
 
 config = {
@@ -50,6 +52,13 @@ class Login(RootHandler):
 
 class Import(RootHandler):
     def get(self):
+        taskqueue.add(url='/import_worker')
+        
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write('Task started (check status at https://appengine.google.com/)')
+
+class ImportWorker(RootHandler):
+    def post(self):
         import importer_cineworld
         i = importer_cineworld.CineWorldImporter()
         i.import_data()
@@ -68,6 +77,7 @@ application = webapp2.WSGIApplication([
     webapp2.Route('/forgot', ForgotPasswordHandler, name='forgot'),
     webapp2.Route('/authenticated', AuthenticatedHandler, name='authenticated'),
     webapp2.Route('/import', Import),
+    webapp2.Route('/import_worker', ImportWorker),
 ], debug=True, config=config)
 
 
