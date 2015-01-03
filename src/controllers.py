@@ -55,7 +55,7 @@ class Import(RootHandler):
         taskqueue.add(url='/import_worker')
         
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Task started (check status at https://appengine.google.com/)')
+        self.response.write('Task started (check status at http://localhost:8000/taskqueue or https://appengine.google.com/)')
 
 class ImportWorker(RootHandler):
     def post(self):
