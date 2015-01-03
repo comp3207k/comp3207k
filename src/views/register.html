@@ -34,31 +34,31 @@
 				    <div class="form-group">
 						<label class="control-label col-md-4" for="userInputFirstName">Username</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" value="username" id="userInputUsername" name="username" placeholder="Username"/>
+                            <input type="text" class="form-control" id="userInputUsername" name="username" placeholder="Username"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-4" for="userInputFirstName">First Name</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" value="firstname" id="userInputFirstName" name="firstname" placeholder="First Name"/>
+                            <input type="text" class="form-control" id="userInputFirstName" name="firstname" placeholder="First Name"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-4" for="userInputLastName">Last Name</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" value="lastname" id="userInputLastName" name="lastname" placeholder="Last Name"/>
+                            <input type="text" class="form-control" id="userInputLastName" name="lastname" placeholder="Last Name"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-4" for="userInputEmail">Email Address</label>
                         <div class="col-sm-7">
-                          <input type="email" class="form-control" value="email" id="userInputEmail" name="email"placeholder="Email"/>
+                          <input type="email" class="form-control" id="userInputEmail" name="email"placeholder="Email"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-4" for="userInputPassword">Password</label>
                         <div class="col-sm-7">
-                          <input type="password" class="form-control" value="password" id="userInputPassword" name="password" placeholder="Password"/>
+                          <input type="password" class="form-control" id="userInputPassword" name="password" placeholder="Password"/>
                         </div>
                     </div>
                     <div class="modal-footer" allign="centre">
@@ -69,7 +69,9 @@
                     </div>
                 </form>
                 </div>
-
+                  {% if warning %}
+                     <div style="margin-top:30px" class="alert alert-danger" role="alert">{{ warning }}</div>
+                  {% endif %}
               </div>
             </div>
 		</div>

@@ -101,7 +101,7 @@ class MainHandler(BaseHandler):
   def get(self):
     if self.user:
       template_values = {
-          'localUser': "Hi " + self.user.last_name
+          'localUser': "Hi " + self.user.name
           }
       self.render_template('home.html', params=template_values)
     else:
@@ -114,32 +114,24 @@ class SignupHandler(BaseHandler):
   def post(self):
     user_name = self.request.get('username')
     email = self.request.get('email')
-    name = self.request.get('name')
+    name = self.request.get('firstname')
     password = self.request.get('password')
     last_name = self.request.get('lastname')
 
     unique_properties = ['email_address']
+    success, info = self.auth.store.user_model.create_user("auth:" + user_name,
+                      email_address=email, name=name, password_raw=password,last_name=last_name)
     user_data = self.user_model.create_user(user_name,
       unique_properties,
       email_address=email, name=name, password_raw=password,
       last_name=last_name, verified=False)
     if not user_data[0]: #user_data is a tuple
-      self.display_message('Unable to create user for email %s because of \
-        duplicate keys %s' % (user_name, user_data[1]))
+      self.render_template("register.html",{"warning":"There is another account with this username"})
       return
-    
-    user = user_data[1]
-    user_id = user.get_id()
-
-    token = self.user_model.create_signup_token(user_id)
-
-    verification_url = self.uri_for('verification', type='v', user_id=user_id,
-      signup_token=token, _full=True)
-
-    msg = 'Send an email to user in order to verify their address. \
-          They will be able to do so by visiting <a href="{url}">{url}</a>'
-
-    self.render_template('home.html',{'user':user})
+ 
+    if success:
+      self.auth.set_session(self.auth.store.user_to_dict(info), remember=True)
+    self.redirect(self.uri_for('home'))
 
 class ForgotPasswordHandler(BaseHandler):
   def get(self):
