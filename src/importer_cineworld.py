@@ -8,6 +8,7 @@ Defines the CineWorldImporter class.
 from xml.dom import minidom
 import urllib2
 import datetime
+import logging
 
 from google.appengine.ext import ndb
 
@@ -59,9 +60,13 @@ class CineWorldImporter(importer.Importer):
             
             c.populate(**cinema)
             c.put()
-        """
+        
+        logging.info('Deleting film times')
         # Delete all film times because there is no id to use
         models.FilmTimes.delete_all()
+        
+        logging.info('Creating film times')
+        n = 0
         
         for ft in filmtimes:
             c = models.Cinemas.get_by_api_id(ft['cinema_api_id']).key
@@ -69,7 +74,10 @@ class CineWorldImporter(importer.Importer):
             
             nf = models.FilmTimes(parent=c, film_key=f, time=ft['time'])
             nf.put()
-        """
+            n += 1
+            if n % 100 == 0:
+                logging.info(n)
+        
         models.LastUpdate.set_updated(mod)
     
     def _get_cinemas(self):

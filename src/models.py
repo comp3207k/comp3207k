@@ -111,8 +111,8 @@ class FilmTimes(ndb.Model):
         cinemas = Cinemas.get_all_keys()
         
         for c in cinemas:
-            fts = FilmTimes.query(ancestor=c).fetch(10000000, keys_only=True)
-            ndb.delete_multi_async(fts)
+            fts = FilmTimes.query(ancestor=c).fetch(keys_only=True)
+            ndb.delete_multi(fts)
 
 
 class Films(ndb.Model):
