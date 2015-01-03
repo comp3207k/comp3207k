@@ -129,9 +129,11 @@ class ContactHandler(BaseHandler):
 
 class SearchHandler(BaseHandler):
   def post(self):
+    words = self.request.get('searchIt')
     if self.user:
       template_values = {
-          'localUser': "Hi " + self.user.name
+          'localUser': "Hi " + self.user.name,
+          'status' : "Search results after the word(s): " + words
           }
       self.render_template('searchResults.html', params=template_values)
     else:
