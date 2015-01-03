@@ -5,3 +5,10 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+.white {
+  color: white;
+}
+.thumbnail {
+ background-colour:transparent;
+ border:1px solid #fff;
+}
