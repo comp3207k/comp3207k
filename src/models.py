@@ -1,4 +1,5 @@
 """
+models.py
 Databstore models.
 """
 
@@ -7,7 +8,13 @@ import webapp2_extras.appengine.auth.models
 from google.appengine.ext import ndb
 from webapp2_extras import security
 
+
 class User(webapp2_extras.appengine.auth.models.User):
+  """
+  Many of the method here have been copied from the webapp2 core
+  because dolphin.
+  """
+  
   def set_password(self, raw_password):
     """Sets the password for the current user
 

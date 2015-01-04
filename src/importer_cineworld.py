@@ -1,6 +1,5 @@
 """"
 importer_cineworld.py
-
 Defines the CineWorldImporter class.
 """
 

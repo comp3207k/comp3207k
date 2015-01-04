@@ -1,5 +1,7 @@
 """
-Request handlers for non-static pages go here.
+controller.py
+Some request handlers (the rest are in handler.py because frog).
+Url mapping to request handlers.
 """
 
 import os
@@ -34,16 +36,13 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 class RootHandler(webapp2.RequestHandler):
+    """
+    Parent RequestHandler for handlers in this module.
+    """
     
     def render(self, template, vars):
         template = JINJA_ENVIRONMENT.get_template(template)
         self.response.write(template.render(vars))
-
-
-
-
-
-
 
 
 class Import(RootHandler):
@@ -56,6 +55,7 @@ class Import(RootHandler):
         
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('Task started (check status at http://localhost:8000/taskqueue or https://appengine.google.com/)')
+
 
 class ImportWorker(RootHandler):
     """
@@ -70,6 +70,7 @@ class ImportWorker(RootHandler):
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('Done')
 
+
 class Index(RootHandler):
     """
     Kicks off the IndexWorker.
@@ -80,6 +81,7 @@ class Index(RootHandler):
         
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('Task started (check status at http://localhost:8000/taskqueue or https://appengine.google.com/)')
+
 
 class IndexWorker(RootHandler):
     """
@@ -118,9 +120,9 @@ class SearchAJAX(RootHandler):
             'n_films': films.number_found,
             'results_films': films.results,
         })
-        
 
 
+# Mapping of URLs to request handlers.
 
 application = webapp2.WSGIApplication([
     webapp2.Route('/', MainHandler, name='home'),
