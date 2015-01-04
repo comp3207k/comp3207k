@@ -17,6 +17,7 @@ body {
 }
 
 
+
 h3, h4, p {
     color: #ffffff;
 }
@@ -29,4 +30,47 @@ h3, h4, p {
     display: none;
 }
 
+
+
+#maindiv {
+    width: 800px;
+    margin: 0 auto;
+    background-color: #eec;
+}
+
+.textdiv {
+	width: 700px;
+	margin: 25px;
+	float: none;
+}
+
+.align-left{
+   float: left;
+}
+
+.align-right{
+   float: right;
+}
+
+.img-right {
+    display: block;
+    float: right;
+    border: solid 2px #555;
+    padding: 2px;
+    margin: 3px 85pt 3px 5px;
+}
+
+.attributesName {
+	font-family: tahoma, sans-serif;
+	font-style: italic;
+    font-size: 140%;
+    color: #531;
+}
+
+.attributes {
+	font-style: normal;
+    font-size: 100%;
+    color: #da1;
+    margin-left: 40px;
+}
 

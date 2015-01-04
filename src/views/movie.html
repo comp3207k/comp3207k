@@ -66,25 +66,37 @@
       </div>
     </nav>
 
-    <div class="container">
-      <br><br>
-      <div>
-        <p><font color="white"><h3>{{ status }} </h3></font></p>
+    <div id="maindiv">
+      <header>
+        <hgroup class="textdiv">
+          <br><h1> {{ movie.title }} </h1>
+          <div class="align-left">
+            <div class="attributesName">
+              {% if movie.director %}
+                <h2> Directed by: </h2> 
+                <p class="attributes">{{ movie.director }}</p>
+              {% endif %} 
+              <h3> Release Date: </h3>
+              <p class="attributes">{{ movie.release }}</p>
+              <h3> Rating: </h3>
+              <p class="attributes">{{ movie.rating }}</p>
+              <h3> Length: </h3>
+              <p class="attributes">{{ movie.length }}</p>
+            </div><br>
+          </div>
+        </hgroup>
+        <img  class="img-right" style="height: 300px" src="{{ movie.poster }}" alt="...">
+      </header>
+      <br>
+      
+     <div class="textdiv" style="clear: both">
+        <h2>Story</h2>
+        <p>{{ movie.synopsis }}</p>
+        <h2>Cast</h2>
+        <p>{{ movie.cast }}</p>
       </div> 
       <br></br>
-      <div class="row">
-        <div style="width:600px; margin:0 auto;">
-           <div class="thumbnail">
-            <img style="height: 300px" src="images/poster1.png" alt="...">
-            <div class="caption">
-              <h3>The Hobbit: The Battle of The Five Armies</h3>
-              <p>Bilbo and Company are forced to engage in a war against an array of combatants and keep the terrifying Smaug from acquiring a kingdom of treasure and obliterating all of Middle-Earth.</p>
-              <a type="button" class="btn btn-info" href="film.html">Details</a>
-            </div>
-          </div>
-        </div> 
-      </div>     
-    </div><!-- /.container -->
+    </div> 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

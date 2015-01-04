@@ -59,7 +59,12 @@
 							      <p>{{ film.synopsis }}</p>
 						      </div>
 					      </div>
-					      <a type="button" class="btn btn-info" href="film.html">Details</a>
+                <form role="form" method='POST' action="/movie">
+                  <div class="input-group">
+                    <input type="hidden" class="form-control" name="movie_title" value="{{ film.title }}"></input>
+                    <button type="submit" class="btn btn-info">Details</button>
+                   </div><!-- /input-group --> 
+                </form>
 				      </div>
             </div>
           </div>
