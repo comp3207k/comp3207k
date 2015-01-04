@@ -132,6 +132,7 @@ application = webapp2.WSGIApplication([
     webapp2.Route('/index', Index),
     webapp2.Route('/index_worker', IndexWorker),
     webapp2.Route('/about', AboutHandler),
+	webapp2.Route('/profile', ProfileHandler),
     webapp2.Route('/contact', ContactHandler),
     webapp2.Route('/search', SearchHandler),
     webapp2.Route('/search_ajax', SearchAJAX),
