@@ -13,14 +13,11 @@
     </nav>
 <div class="container">
       <div class="page-header">
-        <center><font color="white"<acronym></acronym><h1>CinemaBuddy <br></br><small>Search, find, match, watch.</small></h1></font></center>
+      <center><font color="white"><h1>CinemaBuddy <br></br><small>Search, find, match, watch.</small></h1></font></center>
       </div>
-
       <div>
         <p><h3>Search for new films in cinemas across UK...</h3></p>
-      </div> 
-      <br></br>
-
+      </div><br></br>
       <div class="row">
         <form id="search_form">
           <div class="input-group">
@@ -31,53 +28,36 @@
           </div><!-- /input-group --> 
         </form>
         <br></br>
-        
         <div id="search_results">
-            <h3>Search results:</h3>
-            
-            <p id="search_results_number">0 results</p>
-            
+            <h3>Search results:</h3>          
+            <p id="search_results_number">0 results</p>          
             <div id="search_results_cinemas">
                 <h4>Cinemas</h4>
                 <ul id="search_results_cinemas_target"></ul>
-            </div>
-            
+            </div>        
             <div id="search_results_films">
                 <h4>Films</h4>
                 <ul id="search_results_films_target"></ul>
-            </div>
-            
-            
-            
+            </div>           
         </div>
-
-        <div>
-          <p><h3>... OR check today's recommendations:</h3></p>
-        </div><br></br>
-
-        <div class="row">
-		
-		  {% for film in news %}
+      <div>
+      <p><h3>... OR check today's recommendations:</h3></p>
+      </div><br></br>
+      <div class="row">
+      {% for film in news %}
         <div class="col-sm-6 col-md-4" >
-          
-		<div class="thumbnail" style="background-color:#FFFFFF;">
-
-            <a href="/films/{{ film.api_id }}"><img style="height: 300px" src="{{ film.poster }}" alt="{{ film.title }}"></a>
-            
-				       <div style="height:200px">
-						      <center><h3><font color="black"><a href="/films/{{ film.api_id }}">{{ film.title }}</a></font></h3></center>
-					     
-						      <div style="max-height:140px; overflow: hidden;text-overflow: ;">
-							      <center><p><font color="#3D352A">{{ film.synopsis }}</font></p></center>
-						      </div>
-					      </div>
-				    
-            
-          </div>
-        </div>
-		  {% endfor %}
-
-        </div>
+	<div class="thumbnail" style="background-color:#FFFFFF;">
+	<a href="/films/{{ film.api_id }}"><img style="height: 300px" src="{{ film.poster }}" alt="{{ film.title }}"></a>
+          <div style="height:200px">
+	  <center><h3><font color="black"><a href="/films/{{ film.api_id }}">{{ film.title }}</a></font></h3></center>
+	    <div style="max-height:140px; overflow: hidden;text-overflow: ;">
+	    <center><p><font color="#3D352A">{{ film.synopsis }}</font></p></center>
+	    </div>
+	  </div>
+	</div>
       </div>
+      {% endfor %}
+    </div>
+</div>
 {% endblock %}
 
