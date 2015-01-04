@@ -50,7 +50,7 @@
         <div class="col-sm-6 col-md-4" >
           <div class="thumbnail">
 
-            <img style="height: 300px" src="{{ film.poster }}" alt="...">
+            <a href="/films/{{ film.api_id }}"><img style="height: 300px" src="{{ film.poster }}" alt="{{ film.title }}"></a>
             <div class="caption" >
 				      <div class= "white">
 					      <div style="height:200px">
@@ -59,12 +59,6 @@
 							      <p>{{ film.synopsis }}</p>
 						      </div>
 					      </div>
-                <form role="form" method='POST' action="/movie">
-                  <div class="input-group">
-                    <input type="hidden" class="form-control" name="movie_title" value="{{ film.title }}"></input>
-                    <button type="submit" class="btn btn-info">Details</button>
-                   </div><!-- /input-group --> 
-                </form>
 				      </div>
             </div>
           </div>
