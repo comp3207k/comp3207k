@@ -31,6 +31,11 @@ h3, h4, p {
 }
 
 
+#row h3, .list-group-item h4, #row p {
+    color: #000000;
+}
+
+
 
 #maindiv {
     width: 800px;
