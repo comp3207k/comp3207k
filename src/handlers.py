@@ -187,6 +187,12 @@ class CinemaHandler(BaseHandler):
   def get(self):
     if self.user:
       cinemas = Cinemas.query().order(+Cinemas.name).fetch()
+      
+      n = 0
+      while n < len(cinemas):
+        cinemas[n].films = cinemas[n].get_films()
+        n += 1
+      
       template_values = {
           'cinema_list' : cinemas,
           'localUser': "Hi " + self.user.name
@@ -204,10 +210,25 @@ class MovieHandler(BaseHandler):
   def get(self, id):
     if self.user:
       movie = Films.query(Films.api_id == id).get()
+      
+      if movie is None:
+        return webapp2.abort(404)
+      
+      cid = self.request.get('cinema')
+      cinema = Cinemas.get_by_api_id(cid)
+      cname = None
+      film_times = None
+      
+      if cinema:
+        cname = cinema.name
+        film_times = Cinemas.get_film_times_cinema(cinema, movie)
+      
       template_values = {
           'localUser': "Hi " + self.user.name,
           'movie':movie,
-          'mt':movie.title
+          'mt':movie.title,
+          'cinema_name': cname,
+          'film_times': film_times,
           }
       self.render_template('movie.html', params=template_values)
     else:

@@ -42,7 +42,18 @@
         <p>{{ movie.cast }}</p>
       </div> 
       <br></br>
-    </div> 
+     
+    
+    {% if film_times %}
+        <h3>Film times in {{ cinema_name }}</h3>
+        <ul>
+            {% for f in film_times %}
+                <li>{{ f.time }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    </div>
     </div>
 </div>
 {% endblock %}
