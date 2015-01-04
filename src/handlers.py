@@ -123,7 +123,7 @@ class MainHandler(BaseHandler):
   
   def get(self):
     if self.user:
-      latest_films = Films.query().order(-Films.release).fetch(9)
+      latest_films = Films.query().order(-Films.release).fetch(12)
       template_values = {
           'news':latest_films,
           'localUser': "Hi " + self.user.name

@@ -59,19 +59,20 @@
 		
 		  {% for film in news %}
         <div class="col-sm-6 col-md-4" >
-          <div class="thumbnail">
+          
+		<div class="thumbnail" style="background-color:#FFFFFF;">
 
             <a href="/films/{{ film.api_id }}"><img style="height: 300px" src="{{ film.poster }}" alt="{{ film.title }}"></a>
-            <div class="caption" >
-				      <div class= "white">
-					      <div style="height:200px">
-						      <h3>{{ film.title }}</h3>
+            
+				       <div style="height:200px">
+						      <center><h3><font color="black"><a href="/films/{{ film.api_id }}">{{ film.title }}</a></font></h3></center>
+					     
 						      <div style="max-height:140px; overflow: hidden;text-overflow: ;">
-							      <p>{{ film.synopsis }}</p>
+							      <center><p><font color="#3D352A">{{ film.synopsis }}</font></p></center>
 						      </div>
 					      </div>
-				      </div>
-            </div>
+				    
+            
           </div>
         </div>
 		  {% endfor %}
