@@ -7,6 +7,7 @@ import logging
 import os.path
 import webapp2
 from models import Films
+from models import Cinemas
 from webapp2_extras import auth
 from webapp2_extras import sessions
 
@@ -144,7 +145,9 @@ class SearchHandler(BaseHandler):
 class CinemaHandler(BaseHandler):
   def get(self):
     if self.user:
+      cinemas = Cinemas.query().order(+Cinemas.name).fetch()
       template_values = {
+          'cinema_list' : cinemas,
           'localUser': "Hi " + self.user.name
           }
       self.render_template('cinemas.html', params=template_values)
