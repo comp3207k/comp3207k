@@ -1,0 +1,30 @@
+{
+    "cinemas" : {
+        "n" : {{n_cinemas }},
+        "results" : [
+            {% for r in results_cinemas %}
+                {
+                    "api_id": {{ r.api_id[0].value }},
+                    "name": {{ r.name[0].value }}
+                }
+                
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+    },
+    
+    "films" : {
+        "n" : {{n_films }},
+        "results" : [
+            {% for r in results_films %}
+                {
+                    "api_id": {{ r.api_id[0].value }},
+                    "title": {{ r.title[0].value }},
+                    "poster": {{ r.poster[0].value }}
+                }
+                
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }
+}
