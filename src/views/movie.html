@@ -76,11 +76,11 @@
                 <h2> Directed by: </h2> 
                 <p class="attributes">{{ movie.director }}</p>
               {% endif %} 
-              <h3> Release Date: </h3>
+              <h2> Release Date: </h3>
               <p class="attributes">{{ movie.release }}</p>
-              <h3> Rating: </h3>
+              <h2> Rating: </h3>
               <p class="attributes">{{ movie.rating }}</p>
-              <h3> Length: </h3>
+              <h2> Length: </h3>
               <p class="attributes">{{ movie.length }}</p>
             </div><br>
           </div>
@@ -91,9 +91,9 @@
       
      <div class="textdiv" style="clear: both">
         <h2>Story</h2>
-        <p>{{ movie.synopsis }}</p>
+        <p class="attributes">{{ movie.synopsis }}</p>
         <h2>Cast</h2>
-        <p>{{ movie.cast }}</p>
+        <p class="attributes">{{ movie.cast }}</p>
       </div> 
       <br></br>
     </div> 

@@ -46,7 +46,8 @@ function do_search()
         
         for(i=0; i<data.films.results.length; i++) {
             var f = data.films.results[i];
-            films += '<li><a href="/films/' + f.api_id + '">' + f.title + '</a></li>';
+			var href="/movie?title=" + f.title;
+            films += '<li><a href="' + href + '">' + f.title + '</a></li>';
         }
         
         $('#search_results_films_target').html(films);

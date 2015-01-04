@@ -142,10 +142,9 @@ application = webapp2.WSGIApplication([
     webapp2.Route('/search', SearchHandler),
     webapp2.Route('/search_ajax', SearchAJAX),
     webapp2.Route('/cinemas', CinemaHandler),
-    webapp2.Route('/movie', MovieHandler),
+    webapp2.Route('/movie', handler=MovieHandler),
 ], debug=True, config=config)
 
 
         
-
 
