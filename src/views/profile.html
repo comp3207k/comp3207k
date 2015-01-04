@@ -1,13 +1,61 @@
 {% extends 'base.html' %}
 
 {% block content %}
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+	    <li><a href="/cinemas">Cinemas</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+          </div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<div class="container">
       <div class="page-header">
         <center><font color="white"<acronym></acronym><h1> Profile</center>
       </div>
 
       <div>
-        <p><font color="white"><h3>Search for new films in cinemas across UK...</h3></font></p>
+        <h3 class="white span7 text-center">Please update your details below</h3>
       </div> 
       <br></br>
-
+	  <form class="form-horizontal" name="registerform" method="POST" >
+				    <div class="form-group">
+						<label class="control-label col-md-4" for="userInputFirstName">Username</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="userInputUsername" name="username" placeholder='User name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="userInputFirstName">First Name</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="userInputFirstName" name="firstname" placeholder="First Name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="userInputLastName">Last Name</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="userInputLastName" name="lastname" placeholder="Last Name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="userInputEmail">Email Address</label>
+                        <div class="col-sm-7">
+                          <input type="email" class="form-control" id="userInputEmail" name="email"placeholder="Email"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="userInputPassword">Password</label>
+                        <div class="col-sm-7">
+                          <input type="password" class="form-control" id="userInputPassword" name="password" placeholder="Password"/>
+                        </div>
+                    </div>
+                    <div class="span7 text-center">
+                      <div>
+                        <a type="button" class="btn btn-default" data-dismiss="modal" href="/">Cancel</a>
+                        <button type="submit" value="submit" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                </form>
 {% endblock %}

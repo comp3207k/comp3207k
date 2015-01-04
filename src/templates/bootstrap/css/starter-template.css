@@ -56,7 +56,11 @@ h3, h4, p {
 .align-right{
    float: right;
 }
-
+.align-centre{
+	 margin-left: auto;
+    margin-right: auto;
+	display: block;
+}
 .img-right {
     display: block;
     float: right;

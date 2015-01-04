@@ -12,10 +12,10 @@
     <title>CinemaBuddy</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css" />
 
     <!-- Custom styles for this template -->
-    <link href="bootstrap/css/starter-template.css" rel="stylesheet">
+    <link href="/bootstrap/css/starter-template.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -43,12 +43,6 @@
         </div>
 
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-	    <li><a href="/cinemas">Cinemas</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
           <div class="navbar-collapse collapse">
             <div class="navbar-form navbar-right">
               <img src="images/userPic.png" alt="Profile pic" height="32" width="26"></img>
@@ -62,24 +56,15 @@
                 </ul>
               </div>
             </div>
-          </div>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
 
-    <div class="container">
-      
       {% block content %}
       {% endblock %}
-      
-      
-    </div><!-- /.container -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/search.js"></script>
 	
   </body>

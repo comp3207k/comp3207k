@@ -1,13 +1,22 @@
 """
+models.py
 Databstore models.
 """
 
 import time
+import logging
+
 import webapp2_extras.appengine.auth.models
 from google.appengine.ext import ndb
 from webapp2_extras import security
 
+
 class User(webapp2_extras.appengine.auth.models.User):
+  """
+  Many of the method here have been copied from the webapp2 core
+  because dolphin.
+  """
+  
   def set_password(self, raw_password):
     """Sets the password for the current user
 
@@ -80,9 +89,25 @@ class Cinemas(ndb.Model):
         return Cinemas.query(ancestor=parent_key).filter(Cinemas.api_id == id).get()
     
     @classmethod
+    def get_film_times_cinema(self, cinema, film):
+        """Returns a list of film times for a partiular film."""
+        
+        return FilmTimes.query(ancestor=cinema.key).filter(FilmTimes.film_key == film.key).fetch()
+    
     def get_film_times(self):
         """Returns a list of FilmTime objects."""
-        return FilmTimes.query(ancestor=self).fetch(1000)
+        return FilmTimes.query(ancestor=self.key).fetch(1000)
+    
+    def get_films(self):
+        """Returns a list of Films showing at this cinema."""
+        filmtimes = FilmTimes.query(ancestor=self.key).fetch(100)
+        films = []
+        
+        for f in filmtimes:
+            if f.film_key not in films:
+                films.append(f.film_key)
+        
+        return ndb.get_multi(films)
     
     @classmethod
     def delete_film_times(self):
