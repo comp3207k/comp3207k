@@ -11,6 +11,7 @@ import os.path
 import webapp2
 from models import Films
 from models import Cinemas
+from models import User
 from webapp2_extras import auth
 from webapp2_extras import sessions
 
@@ -155,7 +156,12 @@ class ProfileHandler(BaseHandler):
   
   def get(self):
     if self.user:
+     
       template_values = {
+		  
+		  'userFirstName': self.user.name,
+		  'userLastName': self.user.last_name,
+		  'userEmail': self.user.email_address,
           'localUser': "Hi " + self.user.name
           }
       self.render_template('profile.html', params=template_values)
