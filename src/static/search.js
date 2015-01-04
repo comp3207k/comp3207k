@@ -39,7 +39,7 @@ function do_search()
         var i;
         for(i=0; i<data.cinemas.results.length; i++) {
             var c = data.cinemas.results[i];
-            cinemas += '<li><a href="/cinemas/' + c.api_id + '">' + c.name + '</a></li>';
+            cinemas += '<li><a target="blank" href="' + c.url + '">' + c.name + '</a></li>';
         }
         
         $('#search_results_cinemas_target').html(cinemas);

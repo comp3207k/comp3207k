@@ -5,7 +5,8 @@
             {% for r in results_cinemas %}
                 {
                     "api_id": {{ r.api_id[0].value }},
-                    "name": "{{ r.name[0].value }}"
+                    "name": "{{ r.name[0].value }}",
+                    "url": "{{ r.url[0].value}}"
                 }
                 
                 {% if not loop.last %},{% endif %}

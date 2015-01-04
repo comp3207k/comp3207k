@@ -44,6 +44,7 @@ def import_cinema(cinema):
         doc_id = generate_cinema_id(cinema),
         fields = [
             search.TextField(name='name', value=cinema.name),
+            search.AtomField(name='url', value=cinema.url),
             search.AtomField(name='api_id', value=cinema.api_id),
         ]
     )
