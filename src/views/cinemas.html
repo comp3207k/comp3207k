@@ -44,7 +44,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
-	    <li><a href="/cinemas">Cinemas</a></li>
+            <li class="active"><a href="/cinemas">Cinemas</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
@@ -67,9 +67,20 @@
     </nav>
 
     <div class="container">
-      <br><br>
+      <br></br>
+      <div class="row">
+        <form role="form" method='POST' action="/search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for films" name="searchIt"></input>
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-default">Search</button>
+            </span>
+          </div><!-- /input-group --> 
+        </form>
+
       <div>
-        <p><font color="white"><h3>{{ status }} </h3></font></p>
+        <p><font color="white"><h3>{{ status }}</h3></font></p>
+		{{html}}
       </div> 
       <br></br>
       <div class="row">
@@ -85,6 +96,7 @@
         </div> 
       </div>     
     </div><!-- /.container -->
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
