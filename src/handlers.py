@@ -149,6 +149,20 @@ class CinemaHandler(BaseHandler):
           }
       self.render_template('cinemas.html', params=template_values)
     else:
+      self.redirect(self.uri_for('login'))
+
+class MovieHandler(BaseHandler):
+  def post(self):
+    if self.user:
+      movie_title = self.request.get('movie_title')
+      movie = Films.query(Films.title==movie_title).get()
+      template_values = {
+          'localUser': "Hi " + self.user.name,
+          'movie':movie,
+          'mt':movie_title
+          }
+      self.render_template('movie.html', params=template_values)
+    else:
       self.redirect(self.uri_for('login'))      
 
 class SignupHandler(BaseHandler):
