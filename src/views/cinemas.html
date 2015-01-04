@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
       <br></br>
       <div class="row">
         <p><font color="white"><h2>Cinemas</h2></font></p>
 	<ul class="list-group">
 	{% for Cinemas in cinema_list %}
 		<li class="list-group-item">
-        	<div style="cursor: pointer;" onclick="$('#{{ Cinemas.api_id }}').toggle();"><p><h4>{{ Cinemas.name }}</h4></p></div>
-		<br>
-		<div id="{{ Cinemas.api_id }}" style="display: none">{{ Cinemas.address }}<br><a href="{{ Cinemas.url }}">Visit Site</a></div>
+        	<div style="cursor: pointer;" onclick="$('#{{ Cinemas.api_id }}').toggle(500);">
+		<p><h4><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i> {{ Cinemas.name }}</h4></p></div>
+		<div id="{{ Cinemas.api_id }}" style="display: none">
+		<br> {{ Cinemas.address }}<br><a href="{{ Cinemas.url }}">Visit Site</a></div>
 		</li>
 	{% endfor %}
 	</ul>
       </div> 
       <br></br>
 {% endblock %}
-
-<button type="button" onclick="$('#{{ Cinemas.api_id }}').toggle();"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
