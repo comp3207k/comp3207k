@@ -254,7 +254,7 @@ class SignupHandler(BaseHandler):
       email_address=email, name=name, password_raw=password,
       last_name=last_name, verified=False)
     if not user_data[0]: #user_data is a tuple
-      self.render_template("register.html",{"warning":"There is another account with this username"})
+      self.render_template("register.html",{"warning":"Invalid input or existing username"})
       return
  
     if success:
