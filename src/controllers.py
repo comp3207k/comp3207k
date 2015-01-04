@@ -103,6 +103,11 @@ class SearchAJAX(RootHandler):
     
     def get(self):
         query = self.request.get('q')[:100].strip()
+        
+        if len(query) == 0:
+            self.response.write('')
+            return
+        
         cinemas, films = search.query(query)
         
         self.response.headers['Content-Type'] = 'application/json'

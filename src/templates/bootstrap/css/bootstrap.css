@@ -903,7 +903,6 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
   background-color: #fff;
 }
 input,
@@ -1030,7 +1029,6 @@ h6 .small,
 .h6 .small {
   font-weight: normal;
   line-height: 1;
-  color: #777;
 }
 h1,
 .h1,

@@ -6,23 +6,42 @@
       </div>
 
       <div>
-        <p><font color="white"><h3>Search for new films in cinemas across UK...</h3></font></p>
+        <p><h3>Search for new films in cinemas across UK...</h3></p>
       </div> 
       <br></br>
 
       <div class="row">
-        <form role="form" method='POST' action="/search">
+        <form id="search_form">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for films" name="searchIt"></input>
+            <input type="text" class="form-control" placeholder="Search for films" name="searchIt" id="search_field"></input>
             <span class="input-group-btn">
-              <button type="submit" class="btn btn-default">Search</button>
+              <button class="btn btn-default">Search</button>
             </span>
           </div><!-- /input-group --> 
         </form>
         <br></br>
+        
+        <div id="search_results">
+            <h3>Search results:</h3>
+            
+            <p id="search_results_number">0 results</p>
+            
+            <div id="search_results_cinemas">
+                <h4>Cinemas</h4>
+                <ul id="search_results_cinemas_target"></ul>
+            </div>
+            
+            <div id="search_results_films">
+                <h4>Films</h4>
+                <ul id="search_results_films_target"></ul>
+            </div>
+            
+            
+            
+        </div>
 
         <div>
-          <p><font color="white"><h3>... OR check today's recommendations:</h3></font></p>
+          <p><h3>... OR check today's recommendations:</h3></p>
         </div><br></br>
 
         <div class="row">
