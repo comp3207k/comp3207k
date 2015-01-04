@@ -2,7 +2,7 @@
 
 {% block content %}
       <div class="page-header">
-        <center><font color="white"<acronym></acronym><h1>CinemaBuddy <br></br><small>Search, find, match, watch.</small></h1></font></center>
+        <center><font color="white"<acronym></acronym><h1> Profile</center>
       </div>
 
       <div>
@@ -10,48 +10,4 @@
       </div> 
       <br></br>
 
-      <div class="row">
-        <form role="form" method='POST' action="/search">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for films" name="searchIt"></input>
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-default">Search</button>
-            </span>
-          </div><!-- /input-group --> 
-        </form>
-        <br></br>
-
-        <div>
-          <p><font color="white"><h3>... OR check today's recommendations:</h3></font></p>
-        </div><br></br>
-
-        <div class="row">
-		
-		  {% for film in news %}
-        <div class="col-sm-6 col-md-4" >
-          <div class="thumbnail">
-
-            <img style="height: 300px" src="{{ film.poster }}" alt="...">
-            <div class="caption" >
-				      <div class= "white">
-					      <div style="height:200px">
-						      <h3>{{ film.title }}</h3>
-						      <div style="max-height:140px; overflow: hidden;text-overflow: ;">
-							      <p>{{ film.synopsis }}</p>
-						      </div>
-					      </div>
-                <form role="form" method='POST' action="/movie">
-                  <div class="input-group">
-                    <input type="hidden" class="form-control" name="movie_title" value="{{ film.title }}"></input>
-                    <button type="submit" class="btn btn-info">Details</button>
-                   </div><!-- /input-group --> 
-                </form>
-				      </div>
-            </div>
-          </div>
-        </div>
-		  {% endfor %}
-
-        </div>
-      </div>
 {% endblock %}
