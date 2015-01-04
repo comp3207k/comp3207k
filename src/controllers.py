@@ -81,6 +81,7 @@ application = webapp2.WSGIApplication([
     webapp2.Route('/about', AboutHandler),
     webapp2.Route('/contact', ContactHandler),
     webapp2.Route('/search', SearchHandler),
+    webapp2.Route('/cinemas', CinemaHandler),
 ], debug=True, config=config)
 
 
