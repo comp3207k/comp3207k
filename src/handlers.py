@@ -1,4 +1,7 @@
-#!/usr/bin/env python
+"""
+handlers.py
+Request handlers.
+"""
 
 from google.appengine.ext.webapp import template
 from google.appengine.ext import ndb
@@ -14,91 +17,110 @@ from webapp2_extras import sessions
 from webapp2_extras.auth import InvalidAuthIdError
 from webapp2_extras.auth import InvalidPasswordError
 
-def user_required(handler):
-  """
-    Decorator that checks if there's a user associated with the current session.
-    Will also fail if there's no session present.
-  """
-  def check_login(self, *args, **kwargs):
-    auth = self.auth
-    if not auth.get_user_by_session():
-      self.redirect(self.uri_for('login'), abort=True)
-    else:
-      return handler(self, *args, **kwargs)
 
-  return check_login
+
+def user_required(handler):
+    """
+    Decorator which checks if the user is logged in.
+    
+    Derived from https://github.com/chrisgco/User-Auth-in-Google-App-Engine (GPL).
+    """
+
+    def check_login(self, *args, **kwargs):
+        auth = self.auth
+        if not auth.get_user_by_session():
+            self.redirect(self.uri_for('login'), abort=True)
+        else:
+            return handler(self, *args, **kwargs)
+
+    return check_login
+
 
 class BaseHandler(webapp2.RequestHandler):
-  @webapp2.cached_property
-  def auth(self):
-    """Shortcut to access the auth instance as a property."""
-    return auth.get_auth()
-
-  @webapp2.cached_property
-  def user_info(self):
-    """Shortcut to access a subset of the user attributes that are stored
-    in the session.
-
-    The list of attributes to store in the session is specified in
-      config['webapp2_extras.auth']['user_attributes'].
-    :returns
-      A dictionary with most user information
     """
-    return self.auth.get_user_by_session()
-
-  @webapp2.cached_property
-  def user(self):
-    """Shortcut to access the current logged in user.
-
-    Unlike user_info, it fetches information from the persistence layer and
-    returns an instance of the underlying model.
-
-    :returns
-      The instance of the user model associated to the logged in user.
+    Parent RequestHandler class defines methods for user
+    authentication.
+    
+    Derived from https://github.com/chrisgco/User-Auth-in-Google-App-Engine (GPL).
     """
-    u = self.user_info
-    return self.user_model.get_by_id(u['user_id']) if u else None
+    
+    @webapp2.cached_property
+    def auth(self):
+        """Shortcut to access the auth instance as a property."""
+        return auth.get_auth()
 
-  @webapp2.cached_property
-  def user_model(self):
-    """Returns the implementation of the user model.
+    @webapp2.cached_property
+    def user_info(self):
+        """Shortcut to access a subset of the user attributes that are stored
+        in the session.
 
-    It is consistent with config['webapp2_extras.auth']['user_model'], if set.
-    """    
-    return self.auth.store.user_model
+        The list of attributes to store in the session is specified in
+          config['webapp2_extras.auth']['user_attributes'].
+        :returns
+          A dictionary with most user information
+        """
+        return self.auth.get_user_by_session()
 
-  @webapp2.cached_property
-  def session(self):
-      """Shortcut to access the current session."""
-      return self.session_store.get_session(backend="datastore")
+    @webapp2.cached_property
+    def user(self):
+        """Shortcut to access the current logged in user.
 
-  def render_template(self, view_filename, params=None):
-    if not params:
-      params = {}
-    user = self.user_info
-    params['user'] = user
-    path = os.path.join(os.path.dirname(__file__), 'views', view_filename)
-    self.response.out.write(template.render(path, params))
+        Unlike user_info, it fetches information from the persistence layer and
+        returns an instance of the underlying model.
 
-  def display_message(self, message):
-    """Utility function to display a template with a simple message."""
-    params = {
-      'message': message
-    }
-    self.render_template('message.html', params)
+        :returns
+          The instance of the user model associated to the logged in user.
+        """
+        u = self.user_info
+        return self.user_model.get_by_id(u['user_id']) if u else None
 
-  # this is needed for webapp2 sessions to work
-  def dispatch(self):
-      # Get a session store for this request.
-      self.session_store = sessions.get_store(request=self.request)
+    @webapp2.cached_property
+    def user_model(self):
+        """Returns the implementation of the user model.
 
-      try:
-          # Dispatch the request.
-          webapp2.RequestHandler.dispatch(self)
-      finally:
-          # Save all sessions.
-          self.session_store.save_sessions(self.response)
+        It is consistent with config['webapp2_extras.auth']['user_model'], if set.
+        """    
+        return self.auth.store.user_model
+
+    @webapp2.cached_property
+    def session(self):
+        """Shortcut to access the current session."""
+        return self.session_store.get_session(backend="datastore")
+
+    def render_template(self, view_filename, params=None):
+        if not params:
+            params = {}
+        
+        user = self.user_info
+        params['user'] = user
+        path = os.path.join(os.path.dirname(__file__), 'views', view_filename)
+        self.response.out.write(template.render(path, params))
+
+    def display_message(self, message):
+        """Utility function to display a template with a simple message."""
+        params = {
+          'message': message
+        }
+        self.render_template('message.html', params)
+
+    # this is needed for webapp2 sessions to work
+    def dispatch(self):
+        # Get a session store for this request.
+        self.session_store = sessions.get_store(request=self.request)
+
+        try:
+            # Dispatch the request.
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            # Save all sessions.
+            self.session_store.save_sessions(self.response)
+
+
 class MainHandler(BaseHandler):
+  """
+  Displays home page or login page.
+  """
+  
   def get(self):
     if self.user:
       latest_films = Films.query().order(-Films.release).fetch(9)
@@ -110,7 +132,12 @@ class MainHandler(BaseHandler):
     else:
       self.redirect(self.uri_for('login'))
 
+
 class AboutHandler(BaseHandler):
+  """
+  About page.
+  """
+  
   def get(self):
     if self.user:
       template_values = {
@@ -119,8 +146,13 @@ class AboutHandler(BaseHandler):
       self.render_template('about.html', params=template_values)
     else:
       self.redirect(self.uri_for('login'))
-	  
+
+
 class ProfileHandler(BaseHandler):
+  """
+  User settings.
+  """
+  
   def get(self):
     if self.user:
       template_values = {
@@ -130,7 +162,12 @@ class ProfileHandler(BaseHandler):
     else:
       self.redirect(self.uri_for('login'))
 
+
 class ContactHandler(BaseHandler):
+  """
+  Contact details of developers.
+  """
+  
   def get(self):
     if self.user:
       template_values = {
@@ -140,19 +177,13 @@ class ContactHandler(BaseHandler):
     else:
       self.redirect(self.uri_for('login'))
 
-class SearchHandler(BaseHandler):
-  def post(self):
-    words = self.request.get('searchIt')
-    if self.user:
-      template_values = {
-          'localUser': "Hi " + self.user.name,
-          'status' : "Search results after the word(s): " + words
-          }
-      self.render_template('searchResults.html', params=template_values)
-    else:
-      self.redirect(self.uri_for('login'))
+
 
 class CinemaHandler(BaseHandler):
+  """
+  Displays a list of cinemas.
+  """
+  
   def get(self):
     if self.user:
       cinemas = Cinemas.query().order(+Cinemas.name).fetch()
@@ -164,19 +195,24 @@ class CinemaHandler(BaseHandler):
     else:
       self.redirect(self.uri_for('login'))
 
+
 class MovieHandler(BaseHandler):
-  def post(self):
+  """
+  Displays details about a specific film.
+  """
+  
+  def get(self, id):
     if self.user:
-      movie_title = self.request.get('movie_title')
-      movie = Films.query(Films.title==movie_title).get()
+      movie = Films.query(Films.api_id == id).get()
       template_values = {
           'localUser': "Hi " + self.user.name,
           'movie':movie,
-          'mt':movie_title
+          'mt':movie.title
           }
       self.render_template('movie.html', params=template_values)
     else:
       self.redirect(self.uri_for('login'))      
+
 
 class SignupHandler(BaseHandler):
   def get(self):
@@ -203,6 +239,7 @@ class SignupHandler(BaseHandler):
     if success:
       self.auth.set_session(self.auth.store.user_to_dict(info), remember=True)
     self.redirect(self.uri_for('home'))
+
 
 class ForgotPasswordHandler(BaseHandler):
   def get(self):
@@ -300,6 +337,8 @@ class SetPasswordHandler(BaseHandler):
     
     self.display_message('Password updated')
 
+
+
 class LoginHandler(BaseHandler):
   def get(self):
     self._serve_page()
@@ -323,12 +362,18 @@ class LoginHandler(BaseHandler):
     }
     self.render_template('login.html', params)
 
+
+
 class LogoutHandler(BaseHandler):
   def get(self):
     self.auth.unset_session()
     self.redirect(self.uri_for('home'))
 
+
+
 class AuthenticatedHandler(BaseHandler):
   @user_required
   def get(self):
     self.render_template('authenticated.html')
+
+
