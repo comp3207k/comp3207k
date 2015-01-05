@@ -156,19 +156,43 @@ class ProfileHandler(BaseHandler):
   User settings.
   """
   
+  @user_required
   def get(self):
-    if self.user:
-     
-      template_values = {
-		  'userUserName': self.user.auth_ids,
-		  'userFirstName': self.user.name,
-		  'userLastName': self.user.last_name,
-		  'userEmail': self.user.email_address,
-          'localUser': "Hi " + self.user.name
-          }
-      self.render_template('profile.html', params=template_values)
+    template_values = {
+      'user': self.user,
+      'userUserName': self.user.auth_ids,
+      'userFirstName': self.user.name,
+      'userLastName': self.user.last_name,
+      'userEmail': self.user.email_address,
+      'localUser': "Hi " + self.user.name
+    }
+    self.render_template('profile.html', params=template_values)
+  
+  @user_required
+  def post(self):
+    p_name = self.request.get('name').strip()
+    p_email = self.request.get('email').strip()
+    p_password = self.request.get('password')
+    
+    if len(p_name) >= 2 and p_name.isalnum():
+        self.user.name = p_name
+        self.user.put()
     else:
-      self.redirect(self.uri_for('login'))
+        self.display_message('Invalid username')
+        return
+    
+    if len(p_email) > 5:
+        self.user.email_address = p_email
+        self.user.put()
+    else:
+        self.display_message('Invalid email')
+        return
+    
+    if len(p_password) > 0:
+        self.display_message('Password changed')
+        return
+    
+    self.display_message('Details updated')
 
 
 class ContactHandler(BaseHandler):
