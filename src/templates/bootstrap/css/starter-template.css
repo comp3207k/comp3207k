@@ -12,10 +12,21 @@ body {
 }
 
 .thumbnail {
-  background-color:#FFFFFF;
-  border:3px solid #777777;
+  background-color:#EEEEEE;
   color: #3D352A;
   text-align: center;
+  border-width: 2px;
+  border-style: solid;
+  -webkit-border-image: 
+  -webkit-gradient(linear, 0 100%, 0 0, from(black), to(rgba(0, 0, 0, 0))) 1 100%;
+  -webkit-border-image: 
+  -webkit-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;
+  -moz-border-image:
+  -moz-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;  
+  -o-border-image:
+  -o-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;
+  border-image:
+  linear-gradient(to top, black, rgba(0, 0, 0, 0)) 1 100%; 
 }
 
 .caption {
@@ -88,27 +99,45 @@ h3, h4, p {
 
 .attributesName {
   font-family: tahoma, sans-serif;
-  font-style: italic;
   font-size: 140%;
-  color: #531;
+  color: #3366BB;
 }
 
 .attributes {
   font-style: normal;
   font-size: 100%;
-  color: black;
+  color: #3D352A;
+  margin-left: 40px;
+}
+
+.filmdetails {
+  font-style: normal;
+  font-size: 80%;
+  color: #3D352A;
   margin-left: 40px;
 }
 
 #topBox {
   width: 800px;
-  margin: 0 auto;
-  background-color:black;
-  background: linear-gradient(to bottom, black , #eec);
+  margin: 0 auto;	
+  /* IE10 Consumer Preview */ 
+  background-image: -ms-linear-gradient(bottom, #EEEECC 0%, #878787 100%);
+  /* Mozilla Firefox */ 
+  background-image: -moz-linear-gradient(bottom, #EEEECC 0%, #878787 100%);
+  /* Opera */ 
+  background-image: -o-linear-gradient(bottom, #EEEECC 0%, #878787 100%);
+  /* Webkit (Safari/Chrome 10) */ 
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #EEEECC), color-stop(1, #878787));
+  /* Webkit (Chrome 11+) */ 
+  background-image: -webkit-linear-gradient(bottom, #EEEECC 0%, #878787 100%);
+  /* W3C Markup, IE10 Release Preview */ 
+  background-image: linear-gradient(to top, #EEEECC 0%, #878787 100%);
 }
 
 .tab {
-  width: 700px;
-  background: linear-gradient(to bottom, #eec, white , #eec);
-  box-shadow: 5px 5px 5px 0px #a9a9a9;
+  color: #3D352A;
+}
+
+.black {
+  color: black;
 }
