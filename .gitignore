@@ -2,3 +2,4 @@
 google_appengine/*
 *.pyc
 data/datastore
+*.zip

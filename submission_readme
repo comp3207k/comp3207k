@@ -1,0 +1,35 @@
+This README is included in the submission archive.
+
+== COMP2307 Group Coursework Team K ==
+
+jc21g11 James Crickmere
+dar1g12 Dan Rusu
+pdp1g12 Dragos Popovici
+bz4e14 Bowen Zhong
+ys6g14 Yue Sun
+dm2e11 Dom McCoy
+sg26g11 Stephen Griffith
+
+-- Modified files ---
+
+The modified file starter-template.css is 90% new code, based on the Bootstrap CSS file specifically provided for modifications.
+
+Some of the images in SourceA/misc/templates/images/ may be from the Bootrap website (http://getbootstrap.com/) (we know its in SourceA but as images are less important it was easier to put them all in one folder).
+
+Only one class and one function in SourceB/python/handlers.py are modified from (https://github.com/chrisgco/User-Auth-in-Google-App-Engine), and are correctly acknowledged. All the other code in this file is original, constituting about 70% original code.
+
+
+-- Running the application --
+
+The directory struture of the application has been preseved; you need to merge the directory trees inside each of the SourceX/python SourceX/javascript SourceX/misc and use the Google App Engine SDK to point to the directory with app.yaml in.
+
+To import the CineWorld data into the database, navigate to the URL /import of the development server. This launches a task that takes about 7 minutes to complete (check the logs to see when it finishes).
+
+After this you need to navigate to the URL /index, which launches a task that completes in a few seconds. This builds the search index for the search to work.
+
+
+
+
+
+
+

@@ -1,6 +1,8 @@
 """
 handlers.py
 Request handlers.
+Only the user_required() function and BaseHandler class contain
+modified code, the rest of the file is original.
 """
 
 from google.appengine.ext.webapp import template
