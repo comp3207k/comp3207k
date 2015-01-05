@@ -12,12 +12,15 @@
       </div>
     </nav>
 <div class="container">
-      <div class="page-header">
-      <center><font color="white"><h1>CinemaBuddy <br></br><small>Search, find, match, watch.</small></h1></font></center>
+      <!--<div class="page-header" style="background-image: url(../images/HomeTitleBackground.png); height: 200px;" width: 400px; border: 1px solid black;">-->
+
+<div class="page-header" style="background-color:rgba(255,255,255,0);">
+	
+      <center><img src="images/logo.png" alt="..."><font color="white"><h1><small>Search, find, match, watch.</small></h1></font></center>
       </div>
-      <div>
+      <div><br>
         <p><h3>Search for new films in cinemas across UK...</h3></p>
-      </div><br></br>
+      </div>
       <div class="row">
         <form id="search_form">
           <div class="input-group">
@@ -40,9 +43,7 @@
                 <ul id="search_results_films_target"></ul>
             </div>           
         </div>
-      <div>
       <p><h3>... OR check today's recommendations:</h3></p>
-      </div><br></br>
       <div class="row">
       {% for film in news %}
         <div class="col-sm-6 col-md-4" >
