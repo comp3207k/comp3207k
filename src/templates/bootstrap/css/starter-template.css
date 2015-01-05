@@ -41,6 +41,7 @@ h3, h4, p {
     width: 800px;
     margin: 0 auto;
     background-color: #eec;
+    margin-bottom: 30px;
 }
 
 .textdiv {
@@ -72,13 +73,28 @@ h3, h4, p {
 .attributesName {
 	font-family: tahoma, sans-serif;
 	font-style: italic;
-    font-size: 140%;
-    color: #531;
+  font-size: 140%;
+  color: #531;
 }
 
 .attributes {
 	font-style: normal;
-    font-size: 100%;
-    color: black;
-    margin-left: 40px;
+  font-size: 100%;
+  color: black;
+  margin-left: 40px;
+}
+
+#topBox {
+
+  width: 800px;
+  margin: 0 auto;
+  background-color:black;
+  background: linear-gradient(to bottom, black , #eec);
+}
+
+.tab {
+  width: 700px;
+  background: linear-gradient(to bottom, #eec, white , #eec);
+  box-shadow: 5px 5px 5px 0px #a9a9a9;
+
 }

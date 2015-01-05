@@ -11,49 +11,50 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-<div class="container">
+
+  <div class="container" >
     <div id="maindiv">
-      <header>
-        <hgroup class="textdiv">
-          <br><h1> {{ movie.title }} </h1>
-          <div class="align-left">
-            <div class="attributesName">
+      <div id="topBox">
+        <hgroup class="textdiv" >
+          
+            <br><h1> {{ movie.title }} </h1>
+            <div class="align-left" >
+              <div class="attributesName">
               {% if movie.director %}
                 <h2> Directed by: </h2> 
                 <p class="attributes">{{ movie.director }}</p>
               {% endif %} 
-              <h2> Release Date: </h3>
-              <p class="attributes">{{ movie.release }}</p>
-              <h2> Rating: </h3>
-              <p class="attributes">{{ movie.rating }}</p>
-              <h2> Length: </h3>
-              <p class="attributes">{{ movie.length }}</p>
-            </div><br>
-          </div>
+                <h2> Release Date: </h2>
+                <p class="attributes">{{ movie.release }}</p>
+                <h2> Rating: </h2>
+                <p class="attributes">{{ movie.rating }}</p>
+                <h2> Length: </h2>
+                <p class="attributes">{{ movie.length }}</p><br>
+            </div>
+          </div> 
         </hgroup>
         <img  class="img-right" style="height: 300px" src="{{ movie.poster }}" alt="...">
-      </header>
       <br>
+      </div>
       
      <div class="textdiv" style="clear: both">
-        <h2>Story</h2>
+        <h2 class="tab">Story</h2>
         <p class="attributes">{{ movie.synopsis }}</p>
-        <h2>Cast</h2>
+        <h2 class="tab">Cast</h2>
         <p class="attributes">{{ movie.cast }}</p>
-      </div> 
+      
       <br></br>
      
     
     {% if film_times %}
-        <h3>Film times in {{ cinema_name }}</h3>
+        <h2 class="tab">Film times in {{ cinema_name }}</h2>
         <ul>
             {% for f in film_times %}
                 <li>{{ f.time }}</li>
             {% endfor %}
         </ul>
     {% endif %}
-    
-    </div>
+    </div> 
     </div>
 </div>
 {% endblock %}
