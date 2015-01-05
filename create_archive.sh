@@ -2,8 +2,17 @@
 
 # Creates a ZIP file in the correct format for submission
 
+echo "Add -noarchive to just create zip folder"
+
 SOURCE_ARCHIVE=teamp_k.zip
 ARCHIVE=comp3207.zip
+
+if [ -d zip ]
+  then
+    echo "Removing old zip directory"
+    rm -r zip
+fi
+
 
 mkdir zip
 
@@ -67,6 +76,12 @@ if [ -a $ARCHIVE ]
   then
     echo "Removing old archive"
     rm $ARCHIVE
+fi
+
+if [ $# -eq 1 -a $1 == '-noarchive' ]
+  then
+    echo "Skipping archive creation"
+    exit
 fi
 
 cd zip
