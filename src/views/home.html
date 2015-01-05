@@ -12,14 +12,16 @@
       </div>
     </nav>
     <div class="container">
-      <div class="page-header" style="background-color:rgba(255,255,255,0);">
-      <center><img src="images/logo.png" alt="..."><font color="white"><h1><small>Search, find, match, watch.</small></h1></font></center>
+      <div class="page-header">
+        <div class="white">
+        <center><img src="images/logo.png" alt="..."><h1><small>Search, find, match, watch.</small></h1></center>
+	</div>
       </div>
-      <div><br>
-        <p><h3>Search for new films in cinemas across UK...</h3></p>
+      <div><br />
+        <h3>Search for new films in cinemas across UK...</h3>
       </div>
       <div class="row">
-        <form id="search_form">
+        <form id="search_form"><!-- Film Searchbar -->
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for films" name="searchIt" id="search_field"></input>
             <span class="input-group-btn">
@@ -28,7 +30,7 @@
           </div><!-- /input-group --> 
         </form>
         <br></br>
-        <div id="search_results">
+        <div id="search_results"><!-- Display Search Results -->
             <h3>Search results:</h3>          
             <p id="search_results_number">0 results</p>          
             <div id="search_results_cinemas">
@@ -42,14 +44,14 @@
         </div>
       <p><h3>... OR check today's recommendations:</h3></p>
       <div class="row">
-      {% for film in news %}
+      {% for film in news %}<!-- Film Thumbnails -->
         <div class="col-sm-6 col-md-4" >
-	<div class="thumbnail" style="background-color:#FFFFFF;">
+	<div class="thumbnail">
 	<a href="/films/{{ film.api_id }}"><img style="height: 300px" src="{{ film.poster }}" alt="{{ film.title }}"></a>
-          <div style="height:200px">
-	  <center><h3><font color="black"><a href="/films/{{ film.api_id }}">{{ film.title }}</a></font></h3></center>
-	    <div style="max-height:140px; overflow: hidden;text-overflow: ;">
-	    <center><p><font color="#3D352A">{{ film.synopsis }}</font></p></center>
+          <div class="filmtitle">
+	  <h3><a href="/films/{{ film.api_id }}">{{ film.title }}</a></h3>
+	    <div class="synopsis">
+	    {{ film.synopsis }}<!-- /Film Thumbnails -->
 	    </div>
 	  </div>
 	</div>
