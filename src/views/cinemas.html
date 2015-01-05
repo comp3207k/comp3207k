@@ -22,8 +22,8 @@
     <p><h4><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i> {{ Cinemas.name }}</h4></p>
     </div>
     <div id="{{ Cinemas.api_id }}" style="display: none">
-    <br> {{ Cinemas.address }}<br><a href="{{ Cinemas.url }}">Visit Site</a><br />
-    <strong>Films:</strong>
+    <br> Address: <br>{{ Cinemas.address }}<br><h4><a href="{{ Cinemas.url }}">Visit Site..</a></h4>
+    <h4><strong>Films:</strong></h4>
     <ul>
         {% for f in Cinemas.films %}
             <li><a href="/films/{{f.api_id}}?cinema={{ Cinemas.api_id }}">{{ f.title }}</a></li>
