@@ -160,7 +160,7 @@ class ProfileHandler(BaseHandler):
     if self.user:
      
       template_values = {
-		  
+		  'userUserName': self.user.auth_ids,
 		  'userFirstName': self.user.name,
 		  'userLastName': self.user.last_name,
 		  'userEmail': self.user.email_address,
@@ -264,7 +264,6 @@ class SignupHandler(BaseHandler):
     if not user_data[0]: #user_data is a tuple
       self.render_template("register.html",{"warning":"Invalid input or existing username"})
       return
- 
     if success:
       self.auth.set_session(self.auth.store.user_to_dict(info), remember=True)
     self.redirect(self.uri_for('home'))
