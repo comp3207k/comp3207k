@@ -4,7 +4,7 @@
 
 echo "Add -noarchive to just create zip folder"
 
-SOURCE_ARCHIVE=teamp_k.zip
+SOURCE_ARCHIVE=source.zip
 ARCHIVE=comp3207.zip
 
 if [ -d zip ]
@@ -69,7 +69,7 @@ cp src/templates/bootstrap/css/*.{css,map} zip/SourceC/misc/templates/bootstrap/
 rm zip/SourceC/misc/templates/bootstrap/css/starter-template.css
 cp src/templates/bootstrap/fonts/* zip/SourceC/misc/templates/bootstrap/fonts/
 
-cp submission_readme zip/reademe
+cp submission_readme zip/readme
 
 
 if [ -a $ARCHIVE ]
